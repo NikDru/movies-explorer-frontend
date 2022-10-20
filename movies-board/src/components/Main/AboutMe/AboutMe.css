@@ -1,0 +1,68 @@
+.me {
+  margin: 0;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+.me__header {
+  margin: 110px 0 0 0;
+}
+
+.me__info {
+  margin: 66px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.me__text-block {
+  display: flex;
+  flex-flow: column;
+  max-width: 600px;
+  align-items: flex-start;
+}
+
+.me__name {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+
+.me__job {
+  margin: 18px 0 0 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.me__small {
+  margin: 26px 0 0 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: start;
+}
+
+.me__github-link {
+  margin: 99px 0 0 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.me__photo {
+
+}

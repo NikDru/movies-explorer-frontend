@@ -1,0 +1,81 @@
+.project {
+  margin: 0;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project__header {
+  margin: 110px 0 0 0;
+}
+
+.project__list {
+  margin: 70px 0 0 0;
+  display: flex;
+}
+
+.project__presentation {
+  display: flex;
+  flex-flow: column;
+  row-gap: 26px;
+}
+
+.project__presentation-header {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+
+}
+
+.project__presentation-text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.project__chart {
+  margin: 110px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto auto;
+  row-gap: 14px;
+}
+
+.project__chart-element {
+  margin: 0;
+  padding: 0;
+  height: 36px;
+  background-color: #2BE080;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project__chart-element_color_gray {
+  background-color: #F2F2F2;
+}
+
+.project__chart-sign {
+  margin: 0;
+  padding: 0;
+  color: #A0A0A0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}

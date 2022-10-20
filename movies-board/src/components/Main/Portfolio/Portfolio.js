@@ -1,11 +1,22 @@
+import arrow from '../../../images/link_arrow.svg';
+
 function Portfolio(props) {
   return (
-    <>
-      <h3>Портфолио</h3>
-      <p>Статичный сайт</p>
-      <p>Адаптивный сайт</p>
-      <p>Одностраничное приложение</p>
-    </>
+    <section className='portfolio'>
+      <h3 className='portfolio__header'>Портфолио</h3>
+      <div className='portfolio__link'>
+        <p className='portfolio__link-text'>Статичный сайт</p>
+        <img className='portfolio__link-image' src={arrow} alt='Arrow'/>
+      </div>
+      <div className='portfolio__link'>
+        <p className='portfolio__link-text'>Адаптивный сайт</p>
+        <img className='portfolio__link-image' src={arrow} alt='Arrow'/>
+      </div>
+      <div className='portfolio__link'>
+        <p className='portfolio__link-text'>Одностраничное приложение</p>
+        <img className='portfolio__link-image' src={arrow} alt='Arrow'/>
+      </div>
+    </section>
   );
 }
 
