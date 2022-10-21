@@ -1,0 +1,61 @@
+.card {
+  margin: 0;
+  padding: 0;
+  width: 270px;
+  height: 230px;
+}
+
+.card__photo {
+  margin: 0;
+  padding: 0;
+  width: 270px;
+  height: 151px;
+}
+
+.card__sign {
+  margin: 14px 0 0 0;
+  padding: 0 0 13px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.card__name {
+  margin: 0;
+  padding: 0;
+  min-height: 32px;
+  max-width: 226px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: left;
+}
+
+.card__like {
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background-color: transparent;
+  background-image: url(../../images/like.svg);
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+}
+
+.card__like_active {
+  background-image: url(../../images/like_active.svg);
+}
+
+.card__length {
+  margin: 6px 0 0 0;
+  padding: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  display: flex;
+}
