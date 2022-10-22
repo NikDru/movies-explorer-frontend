@@ -10,7 +10,7 @@ function Promo(props) {
           </div>
           <img src={earthWebImage} alt='Earth'/>
         </div>
-        <button className='promo__add-info-button'>Узнать больше</button>
+        <button className='button-animation promo__add-info-button'>Узнать больше</button>
       </section>
   );
 }

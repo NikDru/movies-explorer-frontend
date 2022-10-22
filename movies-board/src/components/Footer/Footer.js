@@ -5,8 +5,8 @@ function Footer(props) {
       <div className='footer__content'>
         <p className='footer__date'>&copy; 2022</p>
         <div className='footer__links'>
-          <p className='footer__link'>Яндекс.Практикум</p>
-          <p className='footer__link'>Github</p>
+          <a className='link-animation footer__link' href='https://practicum.yandex.ru' target='blank'>Яндекс.Практикум</a>
+          <a className='link-animation footer__link' href='https://github.com' target='blank'>Github</a>
         </div>
       </div>
     </footer>

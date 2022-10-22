@@ -5,7 +5,7 @@ function SearchForm(props) {
     <section className='search'>
       <div className='search__input-container'>
         <input type='text' className='search__input' placeholder='Фильм'/>
-        <button className='search__button'>Поиск</button>
+        <button className='button-animation search__button'>Поиск</button>
       </div>
       <div className='search__switcher'>
         <Switcher />

@@ -12,9 +12,9 @@ function AboutMe(props) {
           У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом.
           Недавно начал кодить. С 2015 года работал в компании «СКБ Контур».
           После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
-          <p className='me__github-link'>Github</p>
+          <a className='link-animation me__github-link' href='https://github.com/NikDru' target='blank'>Github</a>
         </div>
-        <img className='me__photo' src={photo} alt='My Photo'/>
+        <img className='me__photo' src={photo} alt='Me'/>
       </div>
     </section>
   );

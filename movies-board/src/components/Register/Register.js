@@ -24,9 +24,9 @@ function Register(props) {
             <input className='signup__input' type='password'></input>
             <span className='signup__input-error'>Что-то пошло не так</span>
           </div>
-        <input className="signup__button" type="submit" value={'Зарегистрироваться'}></input>
+        <input className="button-animation signup__button" type="submit" value={'Зарегистрироваться'}></input>
         </form>
-        <p className='signup__text'>Уже зарегистрированы? <a className='signup__link' href='#'>Войти</a></p>
+        <p className='signup__text'>Уже зарегистрированы? <a className='link-animation signup__link' href='#'>Войти</a></p>
       </section>
     </>
   );

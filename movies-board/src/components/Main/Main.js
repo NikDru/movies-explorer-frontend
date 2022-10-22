@@ -8,17 +8,13 @@ import Footer from '../Footer/Footer';
 
 function Main(props) {
   return (
-    <>
-      <Header />
-      <main className='main'>
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio />
-        <Footer />
-      </main>
-    </>
+    <main className='main'>
+      <Promo />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
+      <Portfolio />
+    </main>
   );
 }
 

@@ -2,6 +2,8 @@
 @import url(./vendors/fonts/fonts.css);
 
 @import url(./CommonStyles/section-header.css);
+@import url(./CommonStyles/link-animation.css);
+@import url(./CommonStyles/button-animation.css);
 
 @import url(./components/Switcher/Switcher.css);
 
