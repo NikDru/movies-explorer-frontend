@@ -24,6 +24,12 @@
 
 @import url(./components/SearchForm/SearchForm.css);
 
+@import url(./components/Profile/Profile.css);
+
+@import url(./components/Register/Register.css);
+
+@import url(./components/NotFound/NotFound.css);
+
 
 body {
   margin: 0;
