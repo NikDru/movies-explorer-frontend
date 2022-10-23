@@ -9,7 +9,7 @@ function Menu(props) {
     <div className='menu menu_opened'>
       <div className='menu__container'>
         <button className='menu__close-button'></button>
-        <Navigation signedIn='true' main='true' style={props.style}/>
+        <Navigation signedIn={true} sideMenu={true} style={props.style}/>
       </div>
     </div>
   );

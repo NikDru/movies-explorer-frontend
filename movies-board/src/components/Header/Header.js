@@ -11,7 +11,7 @@ function Header(props) {
         <NavLink className='header__link' to='/'>
           <img src={logo} alt='Logo' className='header__logo'/>
         </NavLink>
-        <Navigation signedIn='true'/>
+        <Navigation signedIn={props.signedIn} style={props.style} sideMenu={false}/>
       </div>
     </header>
   );

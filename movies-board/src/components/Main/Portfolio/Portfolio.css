@@ -1,5 +1,5 @@
 .portfolio {
-  margin: 100px 0 125px 0;
+  margin: 100px 0 204px 0;
   padding: 0 70px;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
   margin: 0;
   padding: 0;
   height: 50px;
-  min-width: 880px;
+  max-width: 880px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -46,4 +46,19 @@
 
 .portfolio__link-image {
 
+}
+
+@media screen and (max-width: 1023px) {
+  .portfolio {
+    margin: 90px 0 169px 0;
+    padding: 0 50px;
+  }
+
+  .portfolio__header {
+    margin: 0 0 30px 0;
+  }
+
+  .portfolio__link-text {
+    font-size: 28px;
+  }
 }

@@ -11,7 +11,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  const signedIn = true;
+  const signedIn = false;
 
   return (
     <div className="App">
@@ -43,7 +43,7 @@ function App() {
           <Footer />
         </Route>
       </Switch>
-      <Menu style = 'white'/>
+{/*       <Menu style = 'white'/> */}
     </div>
   );
 }
