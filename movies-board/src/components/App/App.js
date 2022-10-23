@@ -5,6 +5,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
+import Menu from '../Menu/Menu';
 import NotFound from '../NotFound/NotFound';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
@@ -42,6 +43,7 @@ function App() {
           <Footer />
         </Route>
       </Switch>
+      <Menu style = 'white'/>
     </div>
   );
 }

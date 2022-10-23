@@ -3,7 +3,7 @@ import logo from '../../images/logo.svg';
 function Register(props) {
   return (
     <>
-      <header className=''>
+      <header className='signup__header'>
         <img src={logo} alt='Logo'/>
         <h1>Добро пожаловать!</h1>
       </header>
