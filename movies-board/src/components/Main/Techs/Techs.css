@@ -105,3 +105,33 @@
     gap: 10px;
   }
 }
+
+
+
+@media screen and (max-width: 425px) {
+  .techs {
+    padding: 0 18px;
+    background-color: #FFFFFF;
+  }
+
+  .techs__header {
+    margin: 70px 0 0;
+  }
+
+  .techs__title {
+    margin: 60px 0 0;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .techs__subtitle {
+    margin: 24px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .techs__technology-list {
+    margin: 50px 0 70px;
+    grid-template-columns: repeat(2, 84px);
+  }
+}

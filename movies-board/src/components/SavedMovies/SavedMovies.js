@@ -1,6 +1,10 @@
+import SearchForm from '../SearchForm/SearchForm';
+
 function SavedMovies(props) {
   return (
-    <div></div>
+    <main className='movies main'>
+      <SearchForm />
+    </main>
   );
 }
 

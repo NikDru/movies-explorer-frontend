@@ -14,7 +14,7 @@ function AboutMe(props) {
           После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
           <a className='link-animation me__github-link' href='https://github.com/NikDru' target='blank'>Github</a>
         </div>
-{/*         <img className='me__photo' src={photo} alt='Me'/> */}
+        <img className='me__photo' src={photo} alt='Me'/>
       </div>
     </section>
   );

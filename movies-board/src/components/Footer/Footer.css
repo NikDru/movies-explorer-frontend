@@ -86,4 +86,13 @@
     row-gap: 12px;
   }
 
+  .footer__date {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Preloader from '../Preloader/Preloader';
@@ -11,7 +13,16 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  const signedIn = false;
+  const [sideMenu, setSideMenu] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
+
+  function openSideMenu() {
+    setSideMenu(true);
+  }
+
+  function closeSideMenu() {
+    setSideMenu(false);
+  }
 
   return (
     <div className="App">
@@ -23,27 +34,29 @@ function App() {
           <Register />
         </Route>
         <Route exact path="/movies">
-          <Header signedIn={signedIn} style='white'/>
+          <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
           <Movies />
-          <Preloader />
+{/*           <Preloader /> */}
           <Footer />
         </Route>
         <Route exact path="/saved-movies">
-          <Header signedIn={signedIn} style='white'/>
-          <Movies />
+          <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
+          <SavedMovies />
           <Footer />
         </Route>
         <Route exact path="/profile">
-          <Header signedIn={signedIn} style='white'/>
+          <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
           <Profile />
         </Route>
         <Route exact path="/">
-          <Header signedIn={signedIn}/>
+          <Header signedIn={signedIn} onSideMenuClick={openSideMenu}/>
           <Main />
           <Footer />
         </Route>
       </Switch>
-{/*       <Menu style = 'white'/> */}
+      {
+        <Menu style='white'  onSideMenuClose={closeSideMenu} isOpen={sideMenu}/>
+      }
     </div>
   );
 }

@@ -6,6 +6,11 @@
   justify-content: center;
 }
 
+.navigation__side-menu {
+  width: 44px;
+  height: 44px;
+}
+
 .navigation__sign-links {
   display: flex;
   column-gap: 30px;
@@ -139,4 +144,27 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
+}
+
+@media screen and (max-width: 1023px) {
+  .navigation__link-text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .navigation__side-menu {
+    width: 40px;
+    height: 40px;
+  }
+  .navigation__link-text {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .navigation__signin-button {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 16px;
+  }
 }

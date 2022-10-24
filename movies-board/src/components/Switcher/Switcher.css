@@ -61,3 +61,10 @@
   font-size: 13px;
   line-height: 18px;
 }
+
+@media screen and (max-width: 425px) {
+  .switcher__text {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
