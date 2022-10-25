@@ -1,34 +1,34 @@
-import logo from '../../images/logo.svg';
+import { NavLink } from 'react-router-dom';
+import Sign from '../Sign/Sign';
 
 function Register(props) {
   return (
-    <>
-      <header className='signup__header'>
-        <img src={logo} alt='Logo'/>
-        <h1>Добро пожаловать!</h1>
-      </header>
-      <section className='signup'>
-        <form className='signup__form'>
-          <div className='signup__input-block'>
-            <label className='signup__label'>Имя</label>
-            <input className='signup__input' type='text'></input>
-            <span className='signup__input-error'></span>
+    <Sign
+      signIn={false}
+      signature={
+        (
+          <p className='sign__text'>Уже зарегистрированы? <NavLink to='/sign-in' className='link-animation sign__link'>Войти</NavLink></p>)
+        }
+      headerText={'Добро пожаловать!'}
+      buttonText={'Зарегистрироваться'}
+      >
+
+          <div className='sign__input-block'>
+            <label className='sign__label'>Имя</label>
+            <input className='sign__input' type='text'></input>
+            <span className='sign__input-error'></span>
           </div>
-          <div className='signup__input-block'>
-            <label className='signup__label'>E-mail</label>
-            <input className='signup__input' type='text'></input>
-            <span className='signup__input-error'></span>
+          <div className='sign__input-block'>
+            <label className='sign__label'>E-mail</label>
+            <input className='sign__input' type='text'></input>
+            <span className='sign__input-error'></span>
           </div>
-          <div className='signup__input-block'>
-            <label className='signup__label'>Пароль</label>
-            <input className='signup__input' type='password'></input>
-            <span className='signup__input-error'>Что-то пошло не так</span>
+          <div className='sign__input-block'>
+            <label className='sign__label'>Пароль</label>
+            <input className='sign__input' type='password'></input>
+            <span className='sign__input-error'>Что-то пошло не так</span>
           </div>
-        <input className="button-animation signup__button" type="submit" value={'Зарегистрироваться'}></input>
-        </form>
-        <p className='signup__text'>Уже зарегистрированы? <a className='link-animation signup__link' href='#'>Войти</a></p>
-      </section>
-    </>
+    </Sign>
   );
 }
 

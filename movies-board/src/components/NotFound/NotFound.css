@@ -36,3 +36,31 @@
   line-height: 17px;
   color: #3456F3;
 }
+
+@media screen and (max-width: 1023px) {
+  .not-found {
+    margin: 408px auto 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .not-found {
+    margin: 329px auto 0;
+  }
+
+  .not-found__header {
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .not-found__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .not-found__link{
+    margin: 284px 0 0 0;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

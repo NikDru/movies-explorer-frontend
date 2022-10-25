@@ -1,14 +1,13 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Extra from '../Extra/Extra';
 
 function Movies(props) {
   return (
-    <main className='movies main'>
+    <main>
       <SearchForm />
-      <MoviesCardList />
-      <section className='extra'>
-        <button className='button-animation extra-button'>Ещё</button>
-      </section>
+      <MoviesCardList filmsCount={12}/>
+      <Extra />
     </main>
   );
 }

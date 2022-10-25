@@ -5,6 +5,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
@@ -14,7 +15,7 @@ import './App.css';
 
 function App() {
   const [sideMenu, setSideMenu] = useState(false);
-  const [signedIn, setSignedIn] = useState(true);
+  const [signedIn, setSignedIn] = useState(false);
 
   function openSideMenu() {
     setSideMenu(true);
@@ -31,7 +32,7 @@ function App() {
           <Register />
         </Route>
         <Route exact path="/sign-in">
-          <Register />
+          <Login />
         </Route>
         <Route exact path="/movies">
           <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
@@ -53,9 +54,12 @@ function App() {
           <Main />
           <Footer />
         </Route>
+        <Route path="*">
+            <NotFound />
+          </Route>
       </Switch>
       {
-        <Menu style='white'  onSideMenuClose={closeSideMenu} isOpen={sideMenu}/>
+        <Menu styleElements='white' onSideMenuClose={closeSideMenu} isOpen={sideMenu}/>
       }
     </div>
   );
