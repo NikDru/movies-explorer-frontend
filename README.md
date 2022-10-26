@@ -4,4 +4,4 @@
 
 Backend https://api.movies-board.diploma.nomoredomains.icu
 
-Ссылка на файлс шаблоном Figma https://disk.yandex.ru/d/TITSYyGU_ia_uQ
+Ссылка на файлс шаблоном Figma https://disk.yandex.ru/d/LWj1j9MZCjGjrA
