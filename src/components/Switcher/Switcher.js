@@ -1,4 +1,4 @@
-function SearchForm(props) {
+function Switcher(props) {
   return (
     <>
       <label className='switcher'>
@@ -10,4 +10,4 @@ function SearchForm(props) {
   );
 }
 
-export default SearchForm;
+export default Switcher;
