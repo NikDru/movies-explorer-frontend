@@ -9,18 +9,23 @@ import Login from '../Login/Login';
 import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import filmsApi from '../../utils/BeatsMoviesApi';
+import useWindowSize from '../../userHooks/useWindowSize';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
   const [sideMenu, setSideMenu] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
-/*   const [films, setFilms] = useState([]); */
+  const [films, setFilms] = useState([]);
 
 /*   useEffect(() => {
-    filmsApi.getUserInfo()
+    setSignedIn(true);
+    filmsApi.getFilms()
       .then(res => setFilms(res))
       .catch(err => console.log(err));
   }, []); */
@@ -36,40 +41,42 @@ function App() {
 
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/sign-up">
-          <Register />
-        </Route>
-        <Route exact path="/sign-in">
-          <Login />
-        </Route>
-        <Route exact path="/movies">
-          <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
-          <Movies />
-{/*           <Preloader /> */}
-          <Footer />
-        </Route>
-        <Route exact path="/saved-movies">
-          <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
-          <SavedMovies />
-          <Footer />
-        </Route>
-        <Route exact path="/profile">
-          <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
-          <Profile />
-        </Route>
-        <Route exact path="/">
-          <Header signedIn={signedIn} onSideMenuClick={openSideMenu}/>
-          <Main />
-          <Footer />
-        </Route>
-        <Route path="*">
-            <NotFound />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Switch>
+          <Route exact path="/sign-up">
+            <Register />
           </Route>
-      </Switch>
-      {
-        <Menu styleElements='white' onSideMenuClose={closeSideMenu} isOpen={sideMenu}/>
-      }
+          <Route exact path="/sign-in">
+            <Login />
+          </Route>
+          <ProtectedRoute exact path="/movies">
+            <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
+            <Movies />
+  {/*           <Preloader /> */}
+            <Footer />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/saved-movies">
+            <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
+            <SavedMovies />
+            <Footer />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/profile">
+            <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
+            <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/">
+            <Header signedIn={signedIn} onSideMenuClick={openSideMenu}/>
+            <Main />
+            <Footer />
+          </ProtectedRoute>
+          <Route path="*">
+              <NotFound />
+            </Route>
+        </Switch>
+        {
+          <Menu styleElements='white' onSideMenuClose={closeSideMenu} isOpen={sideMenu}/>
+        }
+      </CurrentUserContext.Provider>
     </div>
   );
 }
