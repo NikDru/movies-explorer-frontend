@@ -11,6 +11,7 @@ function Register(props) {
         }
       headerText={'Добро пожаловать!'}
       buttonText={'Зарегистрироваться'}
+      handleSubmit={props.handleSubmit}
       >
 
           <div className='sign__input-block'>

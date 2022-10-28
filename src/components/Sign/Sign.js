@@ -1,6 +1,12 @@
 import logo from '../../images/logo.svg';
 
 function Sign(props) {
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    props.handleSubmit(props.formValues);
+  }
+
   return (
     <>
       <header className='sign__header'>
@@ -8,7 +14,7 @@ function Sign(props) {
         <h1 className='sign__title'>{props.headerText}</h1>
       </header>
       <section className='sign__body'>
-        <form className='sign__form'>
+        <form className='sign__form' onSubmit={handleSubmit}>
           {props.children}
         <input
           className={`button-animation sign__button ${props.signIn === true ? 'sign__button_sign-in' : ''}`}

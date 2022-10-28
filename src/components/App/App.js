@@ -12,23 +12,81 @@ import Menu from '../Menu/Menu';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import './App.css';
 import filmsApi from '../../utils/BeatsMoviesApi';
+import authentificationApi from '../../utils/AuthentificationApi';
 import useWindowSize from '../../userHooks/useWindowSize';
 
-function App() {
-  const [currentUser, setCurrentUser] = useState({});
+function App(props) {
+  const [currentUser, setCurrentUser] = useState({
+    email: '',
+    loggedIn: false
+  });
   const [sideMenu, setSideMenu] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [films, setFilms] = useState([]);
+  let history = useHistory();
 
-/*   useEffect(() => {
-    setSignedIn(true);
-    filmsApi.getFilms()
+  useEffect(() => {
+    //tokenCheck();
+/*     filmsApi.getFilms()
       .then(res => setFilms(res))
-      .catch(err => console.log(err));
-  }, []); */
+      .catch(err => console.log(err)); */
+  }, []);
+
+
+  function handleSignInSubmit(userInfo) {
+    authentificationApi.signIn(userInfo).then((res) => {
+      if (res.token) {
+        localStorage.setItem('token', res.token);
+        authenticateByToken(res.token);
+      }
+      else {
+        return Promise.reject('Token is not valid!');
+      }
+    })
+    .catch((e) => console.log(`Error - ${e}`));
+  }
+
+  function handleSignUpSubmit(userInfo) {
+    authentificationApi.signUp(userInfo).then((res) => {
+      if (res.email === userInfo.email) {
+        console.log("sign-up success");
+      }
+      else {
+        return Promise.reject('Email from answer is not valid!');
+      }
+    })
+    .catch((e) => console.log(`Error - ${e}`));
+  }
+
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      authenticateByToken(token);
+    }
+  }
+
+  function authenticateByToken(token) {
+    authentificationApi.getUserInfo(token).then((res) => {
+      if (res.email) {
+        //api.setToken(token);
+        const newUser = {email: res.email, loggedIn: true};
+        setCurrentUser(newUser);
+        history.push('/');
+      }
+      else {
+        return Promise.reject('Email from answer is not valid!');
+      }
+    })
+    .catch((e) => console.log(`Error - ${e}`));
+  }
+
+  function signOut() {
+    localStorage.removeItem('token');
+    setCurrentUser({loggedIn: true})
+  }
 
 
   function openSideMenu() {
@@ -44,10 +102,10 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path="/sign-up">
-            <Register />
+            <Register handleSubmit={handleSignUpSubmit}/>
           </Route>
           <Route exact path="/sign-in">
-            <Login />
+            <Login handleSubmit={handleSignInSubmit}/>
           </Route>
           <ProtectedRoute exact path="/movies">
             <Header signedIn={signedIn} style='white' onSideMenuClick={openSideMenu}/>
