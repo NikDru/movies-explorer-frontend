@@ -1,6 +1,6 @@
 function AboutProject(props) {
   return (
-    <section className='project'>
+    <section className='project' id='projectLink'>
       <h2 className='project__header section-header'>О проекте</h2>
       <ul className='project__list'>
         <li className='project__element'>
