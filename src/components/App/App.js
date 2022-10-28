@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,10 +12,19 @@ import Menu from '../Menu/Menu';
 import NotFound from '../NotFound/NotFound';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
+import filmsApi from '../../utils/BeatsMoviesApi';
 
 function App() {
   const [sideMenu, setSideMenu] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
+/*   const [films, setFilms] = useState([]); */
+
+/*   useEffect(() => {
+    filmsApi.getUserInfo()
+      .then(res => setFilms(res))
+      .catch(err => console.log(err));
+  }, []); */
+
 
   function openSideMenu() {
     setSideMenu(true);
