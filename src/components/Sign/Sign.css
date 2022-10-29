@@ -69,6 +69,7 @@
   border: none;
   -webkit-appearance: none;
   outline: none;
+  box-sizing: border-box;
 }
 
 .sign__input:focus {
