@@ -41,8 +41,18 @@
 }
 
 .footer__links {
+  margin: 0;
+  padding: 0;
   display: flex;
   column-gap: 20px;
+  list-style-type: none;
+
+}
+
+.footer__links-element {
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .footer__link {
@@ -55,8 +65,6 @@
   line-height: 16px;
   color: #000000;
 }
-
-
 
 @media screen and (max-width: 1023px) {
   .footer {

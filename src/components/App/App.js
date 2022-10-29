@@ -98,7 +98,7 @@ function App(props) {
   }
 
   return (
-    <div className="App">
+    <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path="/sign-up">

@@ -29,7 +29,9 @@ function SearchForm(props) {
             className='search__input'
             placeholder='Фильм'
             onChange={handleSearchValueChange}
-            value={searchValue}/>
+            value={searchValue}
+            required
+            />
           <input type='submit' className='button-animation search__button' value={'Поиск'}></input>
         </div>
         <div className='search__switcher'>

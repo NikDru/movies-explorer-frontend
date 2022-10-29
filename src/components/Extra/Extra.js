@@ -1,7 +1,7 @@
 function Extra(props) {
   return (
     <section className='extra'>
-      <button className='button-animation extra-button'>Ещё</button>
+      <button type='button' className='button-animation extra-button'>Ещё</button>
     </section>
   );
 }
