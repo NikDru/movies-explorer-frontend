@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import Sign from '../Sign/Sign';
 
 function Login(props) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleEmailChange(event) {
     setEmail(event.target.value);

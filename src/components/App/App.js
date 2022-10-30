@@ -18,106 +18,42 @@ import filmsApi from '../../utils/BeatsMoviesApi';
 import authentificationApi from '../../utils/AuthentificationApi';
 import useWindowSize from '../../userHooks/useWindowSize';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: {
-        email: '',
-        loggedIn: false
-      },
-      sideMenu: false,
+function App(props) {
+  const [currentUser, setCurrentUser] = useState({
+    email: '',
+    name: '',
+    loggedIn: false
+  });
+  const [sideMenu, setSideMenu] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const [films, setFilms] = useState([]);
+  let history = useHistory();
 
-    }
-
-    this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
-    this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
-    this.signOut = this.signOut.bind(this);
-    this.openSideMenu = this.openSideMenu.bind(this);
-    this.closeSideMenu = this.closeSideMenu.bind(this);
-  }
-
+  useEffect(() => {
+    tokenCheck();
+/*     filmsApi.getFilms()
+      .then(res => setFilms(res))
+      .catch(err => console.log(err)); */
+  }, []);
 
 
-  handleSignInSubmit(userInfo) {
+  function handleSignInSubmit(userInfo) {
     authentificationApi.signIn(userInfo).then((res) => {
       if (res.token) {
         localStorage.setItem('token', res.token);
-        this.authenticateByToken(res.token);
+        authenticateByToken(res.token);
       }
       else {
         return Promise.reject('Token is not valid!');
       }
     })
-    .catch((e) =>
-      {
-        this.setState(
-          {
-            isSuccessTooltipStatus: false,
-            isInfoTooltipPopupOpen: true
-          },
-          () => {
-            console.log(`Error - ${e}`);
-          }
-        );
-      }
-    );
+    .catch((e) => console.log(`Error - ${e}`));
   }
 
-  handleSignUpSubmit(userInfo) {
+  function handleSignUpSubmit(userInfo) {
     authentificationApi.signUp(userInfo).then((res) => {
       if (res.email === userInfo.email) {
-        this.setState(
-          {
-            isSuccessTooltipStatus: true,
-            isInfoTooltipPopupOpen: true
-          },
-          () => {
-            this.props.history.push('/sign-in');
-          }
-        );
-      }
-      else {
-        return Promise.reject('Email from answer is not valid!');
-      }
-    })
-    .catch((e) =>
-      {
-        this.setState(
-          {
-            isSuccessTooltipStatus: false,
-            isInfoTooltipPopupOpen: true
-          },
-          () => {
-            console.log(`Error - ${e}`);
-          }
-        );
-      }
-    );
-  }
-
-  tokenCheck() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.authenticateByToken(token);
-    }
-  }
-
-  authenticateByToken(token) {
-    authentificationApi.getUserInfo(token).then((res) => {
-      if (res.email) {
-        //api.setToken(token);
-        this.setState({currentUser: {
-              ...this.state.currentUser,
-              loggedIn: true,
-              email: res.email
-            }
-          },
-          () => {
-            //this.getUserData();
-            this.props.history.push('/movies');
-          }
-        );
+        handleSignInSubmit({email: userInfo.email, password: userInfo.password});
       }
       else {
         return Promise.reject('Email from answer is not valid!');
@@ -126,83 +62,91 @@ class App extends React.Component {
     .catch((e) => console.log(`Error - ${e}`));
   }
 
-  signOut() {
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      authenticateByToken(token);
+    }
+  }
+
+  function authenticateByToken(token) {
+    authentificationApi.getUserInfo(token).then((res) => {
+      if (res.email) {
+        //api.setToken(token);
+        const newUser = {
+          name: res.name,
+          email: res.email,
+          loggedIn: true};
+        setCurrentUser(newUser);
+        history.push('/movies');
+      }
+      else {
+        return Promise.reject('Email from answer is not valid!');
+      }
+    })
+    .catch((e) => console.log(`Error - ${e}`));
+  }
+
+  function signOut() {
     localStorage.removeItem('token');
-    this.setState((state) => ({
-      currentUser: {
-        ...state.currentUser,
-        loggedIn: false,
-        email: ''
-      }
-      }),
-      () => {
-        this.props.history.push('/sign-in');
-      }
-    );
+    setCurrentUser({loggedIn: false})
+    history.push('/');
   }
 
 
-  openSideMenu() {
-    this.setState({
-      sideMenu: true
-    });
+  function openSideMenu() {
+    setSideMenu(true);
   }
 
-  closeSideMenu() {
-    this.setState({
-      sideMenu: false
-    });
+  function closeSideMenu() {
+    setSideMenu(false);
   }
-  render() {
-    return (
-      <div className="app">
-        <CurrentUserContext.Provider value={this.state.currentUser}>
-          <Switch>
-            <Route exact path="/sign-up">
-              <Register handleSubmit={this.handleSignUpSubmit}/>
-            </Route>
-            <Route exact path="/sign-in">
-              <Login handleSubmit={this.handleSignInSubmit}/>
-            </Route>
-{/*       <Header signedIn={props.loggedIn} style='white' onSideMenuClick={props.openSideMenu}/> */}
-            <ProtectedRoute exact path="/movies"
-              component={Movies}
-              loggedIn={this.state.currentUser.loggedIn}
-              onSideMenuClick={this.openSideMenu}
+
+  return (
+    <div className="app">
+      <CurrentUserContext.Provider value={currentUser}>
+        <Switch>
+          <Route exact path="/sign-up">
+            <Register handleSubmit={handleSignUpSubmit}/>
+          </Route>
+          <Route exact path="/sign-in">
+            <Login handleSubmit={handleSignInSubmit}/>
+          </Route>
+          <Route exact path="/">
+            <Main
+              onSideMenuClick={openSideMenu}
+            />
+          </Route>
+          <ProtectedRoute
+            onSideMenuClick={openSideMenu}
+            exact path="/movies"
+            component={Movies}
             >
-    {/*           <Preloader /> */}
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/saved-movies">
-              <Header signedIn={this.state.currentUser.loggedIn} style='white' onSideMenuClick={this.openSideMenu}/>
-              <SavedMovies />
-              <Footer />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/profile">
-              <Header signedIn={this.state.currentUser.loggedIn} style='white' onSideMenuClick={this.openSideMenu}/>
-              <Profile />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/"
-              component={
-                <>
-                  <Header signedIn={this.state.currentUser.loggedIn} onSideMenuClick={this.openSideMenu}/>
-                  <Main />
-                  <Footer />
-                </>
-              }
-              >
-
-            </ProtectedRoute>
-            <Route path="*">
-                <NotFound />
-              </Route>
-          </Switch>
-          {
-            <Menu styleElements='white' onSideMenuClose={this.closeSideMenu} isOpen={this.state.sideMenu}/>
-          }
-        </CurrentUserContext.Provider>
-      </div>
-    );
-  }
+  {/*           <Preloader /> */}
+          </ProtectedRoute>
+          <ProtectedRoute
+            onSideMenuClick={openSideMenu}
+            exact path="/saved-movies"
+            component={SavedMovies}
+            >
+          </ProtectedRoute>
+          <ProtectedRoute
+            onSideMenuClick={openSideMenu}
+            exact path="/profile"
+            component={Profile}
+            onExit={signOut}
+            >
+          </ProtectedRoute>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+        {
+          <Menu styleElements='white' onSideMenuClose={closeSideMenu} isOpen={sideMenu}/>
+        }
+      </CurrentUserContext.Provider>
+    </div>
+  );
 }
 
 export default withRouter(App);
