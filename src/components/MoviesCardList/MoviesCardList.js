@@ -2,16 +2,16 @@ import { NavLink } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
-  const cards = [];
-  for (let i = 0; i < props.filmsCount; i++) {
-    cards.push(MoviesCard());
-  }
+  const cardList = props.films.map((film) => {
+    return <MoviesCard film={film}/>
+  })
+
   return (
     <div className='card-list'>
     {
-      cards.length > 0 ?
+      cardList.length > 0 ?
         (
-          <div className='card-list__cards'>{cards}</div>
+          <div className='card-list__cards'>{cardList}</div>
         ) :
         (
           <p className='card-list__empty'>Тут пока ничего нет. Добавьте любимое кино на странице

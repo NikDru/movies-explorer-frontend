@@ -8,7 +8,9 @@
 .card__photo {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 270px;
+  height: 151px;
+  object-fit: cover;
 }
 
 .card__sign {
@@ -81,11 +83,21 @@
     width: 339px;
     height: 269px;
   }
+
+  .card__photo {
+    width: 339px;
+    height: 190px;
+  }
 }
 
 @media screen and (max-width: 425px) {
   .card {
     width: 300px;
     height: 246px;
+  }
+
+  .card__photo {
+    width: 300px;
+    height: 168px;
   }
 }

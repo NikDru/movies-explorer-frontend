@@ -7,6 +7,7 @@ function SearchForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    props.handleSubmit(searchValue, switcher);
     console.log('submit event' + searchValue + ' ' + switcher);
   }
 
