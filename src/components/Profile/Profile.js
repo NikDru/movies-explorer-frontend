@@ -26,13 +26,19 @@ function Profile(props) {
     setEmail(event.target.value);
   }
 
+  function handleSubmitForm(event) {
+    event.preventDefault();
+    props.handleSubmit({name, email});
+    setCorrection(false);
+  }
+
   return (
     <>
       <Header style='white' onSideMenuClick={props.onSideMenuClick}/>
       <section className='profile'>
-        <h1 className='profile__header'>Привет, {name}!</h1>
+        <h1 className='profile__header'>Привет, {currentUser.name}!</h1>
         <form
-            action="#">
+            onSubmit={handleSubmitForm}>
           <div className='profile__input-container'>
             <label className='profile__input-label'>Имя</label>
             <input type='text' className='profile__input profile__input_type_name' value={name} onChange={handleNameChange} disabled={!correction}/>

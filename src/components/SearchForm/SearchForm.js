@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Switcher from '../Switcher/Switcher';
 
 function SearchForm(props) {
-  const [searchValue, setSearchValue] = useState('');
-  const [switcher, setSwitcher] = useState(false);
+  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue'));
+  const [switcher, setSwitcher] = useState(localStorage.getItem('switcher') === 'true');
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -15,9 +15,8 @@ function SearchForm(props) {
     setSearchValue(event.target.value);
   }
 
-  function handleShortFilmsSwitch() {
-    const newValue = !switcher;
-    setSwitcher(newValue);
+  function handleShortFilmsSwitch(event) {
+    setSwitcher(event.target.checked);
   }
 
   return (

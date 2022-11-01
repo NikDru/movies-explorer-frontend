@@ -5,7 +5,7 @@ function Menu(props) {
     <div className={`menu ${props.isOpen ? 'menu_opened' : ''}`}>
       <div className='menu__container'>
         <button className='button-animation menu__close-button' onClick={props.onSideMenuClose}></button>
-        <Navigation signedIn={true} sideMenu={true} styleElements={props.styleElements}/>
+        <Navigation signedIn={true} sideMenu={true} styleElements={props.styleElements} handleClick={props.onSideMenuClose}/>
       </div>
     </div>
   );
