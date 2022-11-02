@@ -1,8 +1,12 @@
 import Api from './Api';
 
-class AuthentificationApi extends Api {
+class MoviesExplorerApi extends Api {
   setToken(jwt) {
     this._headers.Authorization = `Bearer ${jwt}`;
+  }
+
+  deleteToken() {
+    delete this._headers.Authorization;
   }
 
   checkToken(jwt) {
@@ -26,62 +30,31 @@ class AuthentificationApi extends Api {
       .then(res => this._checkServerAnswer(res));
   }
 
-  changeAvatar(avatarLink) {
-    return fetch(this._baseUrl + "/users/me/avatar", {
-      headers: this._headers,
-      method: 'PATCH',
-      body: JSON.stringify(avatarLink)
-    })
-      .then(res => this._checkServerAnswer(res));
-  }
-
-  getCards() {
-    return fetch(this._baseUrl + "/cards", {
+  getMovies(userEmail) {
+    return fetch(this._baseUrl + "/movies", {
       headers: this._headers
     })
-      .then(res => this._checkServerAnswer(res));
+      .then(res => this._checkServerAnswer(res))
+      .then(res => { return res.filter(film => film.owner.email === userEmail)});
   }
 
-  createNewCard(card) {
-    return fetch(this._baseUrl + "/cards", {
+  likeFilm(film) {
+    return fetch(this._baseUrl + "/movies", {
       headers: this._headers,
       method: 'POST',
-      body: JSON.stringify(card)
+      body: JSON.stringify(film)
     })
       .then(res => this._checkServerAnswer(res));
   }
 
-  deleteCard(cardID) {
-    return fetch(this._baseUrl + "/cards/" + cardID, {
+  deleteFilm(filmID) {
+    return fetch(this._baseUrl + "/movies/" + filmID, {
         headers: this._headers,
         method: 'DELETE'
       })
     .then(res => this._checkServerAnswer(res));
   }
 
-  likeCard(cardID) {
-    return fetch(this._baseUrl + "/cards/" + cardID + "/likes", {
-      headers: this._headers,
-      method: 'PUT'
-    })
-    .then(res => this._checkServerAnswer(res));
-  }
-
-  unlikeCard(cardID) {
-    return fetch(this._baseUrl + "/cards/" + cardID + "/likes", {
-      headers: this._headers,
-      method: 'DELETE'
-    })
-    .then(res => this._checkServerAnswer(res));
-  }
-
-  changeLikeCardStatus(cardID, like) {
-    return fetch(this._baseUrl + "/cards/" + cardID + "/likes", {
-      headers: this._headers,
-      method: like ? 'PUT' : 'DELETE'
-    })
-    .then(res => this._checkServerAnswer(res));
-  }
   signIn(userInfo) {
     return fetch(this._baseUrl + "/signin", {
         headers: this._headers,
@@ -102,7 +75,7 @@ class AuthentificationApi extends Api {
 }
 
 
-const authentificationApi = new AuthentificationApi({
+const moviesExplorerApi = new MoviesExplorerApi({
   baseUrl: 'https://api.movies-board.diploma.nomoredomains.icu',
   //baseUrl: 'http://localhost:51555',
   headers: {
@@ -110,4 +83,4 @@ const authentificationApi = new AuthentificationApi({
   }
 });
 
-export default authentificationApi;
+export default moviesExplorerApi;

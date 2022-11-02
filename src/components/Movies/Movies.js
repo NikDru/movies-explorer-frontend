@@ -7,13 +7,15 @@ import Footer from '../Footer/Footer';
 /* import filmsApi from '../../utils/BeatsMoviesApi'; */
 import FilmsWorker from '../../utils/FilmsWorker';
 import useWindowSize from '../../userHooks/useWindowSize';
+import moviesExplorerApi from '../../utils/MoviesExplorerApi';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function Movies(props) {
+  const currentUser = useContext(CurrentUserContext);
   const [search, setSearch] = useState(false);
-  const [searchedValue, setSearchedValue] = useState('');
-  const [switcher, setSwitcher] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [films, setFilms] = useState([]);
+  const [likedFilms, setLikedFilms] = useState([]);
   const [initialFilmsCount, setInitialFilmsCount] = useState(0);
   const [extraFilmsCount, setExtraFilmsCount] = useState(0);
   const [width, height] = useWindowSize();
@@ -28,17 +30,20 @@ function Movies(props) {
   useEffect(() => {
     function getInfoFromLocalStorage() {
       const returnedFilms = localStorage.getItem('returnedFilms') !== null ? JSON.parse(localStorage.getItem('returnedFilms')) : [];
-      const localSearchedValue = localStorage.getItem('searchValue');
-      const localSwitcher = localStorage.getItem('switcher');
       setFilms(returnedFilms);
-      setSearchedValue(localSearchedValue);
-      setSwitcher(localSwitcher);
+    }
+    function getLikedFilms() {
+      moviesExplorerApi.getMovies(currentUser.email)
+      .then(res => {
+        setLikedFilms(res);
+      })
     }
     getInfoFromLocalStorage();
-  }, [])
+    getLikedFilms();
+  }, [currentUser])
 
   function searchFilms(searchValue, switcher) {
-    setSearch(true);
+    //setSearch(true);
     const filmsWorker = new FilmsWorker();
     filmsWorker.searchFilms(searchValue, switcher, initialFilmsCount).then(res => {
       setFilms(res[0]);
@@ -53,20 +58,48 @@ function Movies(props) {
     setHasMore(newHasMore);
   }
 
+
+  function handleLikeFilm(newFilm) {
+    moviesExplorerApi.likeFilm({
+      country: newFilm.country,
+      director: newFilm.director,
+      duration: newFilm.duration,
+      year: newFilm.year,
+      description: newFilm.description,
+      image: newFilm.image.url,
+      trailerLink: newFilm.trailerLink,
+      thumbnail: newFilm.image.formats.thumbnail.url,
+      nameRU: newFilm.nameRU,
+      nameEN: newFilm.nameEN,
+      movieId: newFilm.id
+    })
+    .then(res => {
+      likedFilms.push(res);
+      setLikedFilms([...likedFilms]);
+    })
+  }
+
+  function handleDeleteFilm(film) {
+    moviesExplorerApi.deleteFilm(likedFilms.filter(f => f.movieId === film.id)[0]._id)
+    .then(res => {
+      const newLikedFilms = likedFilms.filter(f => f.movieId !== film.id);
+      setLikedFilms(newLikedFilms);
+    })
+  }
+
   return (
     <>
       <Header signedIn={props.loggedIn} style='white' onSideMenuClick={props.onSideMenuClick}/>
       <main>
         <SearchForm
-          initialSearchValue={searchedValue}
-          initialSwitcher={switcher}
+          searchValue={localStorage.getItem('searchValue')}
+          switcher={localStorage.getItem('switcher') === 'true'}
           handleSubmit={searchFilms}
         />
-        <MoviesCardList films={films}/>
+        <MoviesCardList films={films} likedFilms={likedFilms} handleLikeFilm={handleLikeFilm} deleteFilm={handleDeleteFilm}/>
         {
           hasMore && <Extra handleClickMore={handleClickMore}/>
         }
-
       </main>
       <Footer />
     </>

@@ -3,7 +3,13 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
   const cardList = props.films.map((film) => {
-    return <MoviesCard film={film} key={film.nameRU}/>
+    return <MoviesCard
+            film={film}
+            key={film.nameRU}
+            handleLikeFilm={props.handleLikeFilm}
+            liked={props.likedFilms.some(likedFilm => likedFilm.movieId === film.id)}
+            deleteFilm={props.deleteFilm}
+            />
   })
 
   return (

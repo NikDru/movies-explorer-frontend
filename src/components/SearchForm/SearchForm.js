@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Switcher from '../Switcher/Switcher';
 
 function SearchForm(props) {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue'));
-  const [switcher, setSwitcher] = useState(localStorage.getItem('switcher') === 'true');
+  const [searchValue, setSearchValue] = useState(props.searchValue);
+  const [switcher, setSwitcher] = useState(props.switcher);
 
   function handleSubmit(event) {
     event.preventDefault();

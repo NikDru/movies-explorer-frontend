@@ -8,13 +8,6 @@ class BeatsFilmsApi extends Api {
     })
       .then(res => this._checkServerAnswer(res));
   }
-
-  searchFilms(films, searchValue, switcher) {
-    const sortedFilms = films.filter(film =>
-      film.nameRU.toLowerCase().includes(searchValue.toLowerCase()) &&
-      (!switcher || (switcher && film.duration < 40) ));
-    return sortedFilms;
-  }
 }
 
 const filmsApi = new BeatsFilmsApi({
