@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 import Switcher from '../Switcher/Switcher';
 
 function SearchForm(props) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation((props.searchValue !== null) && props.searchValue.length > 0);
   const [searchValue, setSearchValue] = useState(props.searchValue);
   const [switcher, setSwitcher] = useState(props.switcher);
 
@@ -12,6 +14,7 @@ function SearchForm(props) {
   }
 
   function handleSearchValueChange(event) {
+    handleChange(event);
     setSearchValue(event.target.value);
   }
 
@@ -25,6 +28,7 @@ function SearchForm(props) {
           onSubmit={handleSubmit}>
         <div className='search__input-container'>
           <input
+            name='search__input-name'
             type='text'
             className='search__input'
             placeholder='Фильм'
@@ -32,7 +36,7 @@ function SearchForm(props) {
             value={searchValue}
             required
             />
-          <input type='submit' className='button-animation search__button' value={'Поиск'}></input>
+          <input type='submit' className='button-animation search__button' value={'Поиск'} disabled={!isValid}></input>
         </div>
         <div className='search__switcher'>
           <Switcher onChange={handleShortFilmsSwitch} value={switcher}/>

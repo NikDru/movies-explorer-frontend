@@ -134,6 +134,7 @@ class App extends React.Component {
   closeSideMenu() {
     this.setState({sideMenu : false});
   }
+
   render() {
   return (
       <div className="app">

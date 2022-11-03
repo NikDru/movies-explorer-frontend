@@ -28,7 +28,8 @@ function SavedMovies(props) {
   useEffect(() => {
     if (searched) {
       const filmsWorker = new FilmsWorker();
-      const newFilms = filmsWorker.searchBySavedFilms(searchValue, switcher, likedFilms);
+      const newFilms = filmsWorker.sortFilms(likedFilms, searchValue, switcher).map(el => {
+        return {...el, image: {url: el.image}}});
       setFilms(newFilms);
     }
   }, [likedFilms, switcher, searchValue, searched])
@@ -39,28 +40,30 @@ function SavedMovies(props) {
     setSwitcher(switcher);
     //setSearch(true);
     const filmsWorker = new FilmsWorker();
-    const newFilms = filmsWorker.searchBySavedFilms(searchValue, switcher, likedFilms);
+    const newFilms = filmsWorker.sortFilms(likedFilms, searchValue, switcher).map(el => {
+      return {...el, image: {url: el.image}};
+    });
     setFilms(newFilms);
     console.log('render saved-movies');
   }
 
   function handleDeleteFilm(film) {
-    moviesExplorerApi.deleteFilm(likedFilms.filter(f => f.movieId === film.id)[0]._id)
+    moviesExplorerApi.deleteFilm(film._id)
     .then(res => {
-      const newLikedFilms = likedFilms.filter(f => f.movieId !== film.id);
+      const newLikedFilms = likedFilms.filter(f => f._id !== film._id);
       setLikedFilms(newLikedFilms);
     })
   }
   return (
     <>
-      <Header signedIn={props.loggedIn} style='white' onSideMenuClick={props.onSideMenuClick}/>
+      <Header signedIn={props.loggedIn} fontStyle='white' onSideMenuClick={props.onSideMenuClick}/>
       <main>
         <SearchForm
           searchValue={''}
           switcher={false}
           handleSubmit={searchFilms}
         />
-        <MoviesCardList films={films} likedFilms={likedFilms} deleteFilm={handleDeleteFilm}/>
+        <MoviesCardList films={films} likedFilms={films} deleteFilm={handleDeleteFilm}/>
       </main>
       <Footer />
     </>

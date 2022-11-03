@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCardList(props) {
+  const location = useLocation();
   const cardList = props.films.map((film) => {
     return <MoviesCard
             film={film}
@@ -15,14 +17,23 @@ function MoviesCardList(props) {
   return (
     <div className='card-list'>
     {
-      cardList.length > 0 ?
-        (
-          <div className='card-list__cards'>{cardList}</div>
+      props.searched ? (
+        cardList.length > 0 ?
+          (
+            <div className='card-list__cards'>{cardList}</div>
+          ) :
+          (
+            <p className='card-list__empty'>Ничего не найдено</p>
+          )
         ) :
         (
-          <p className='card-list__empty'>Тут пока ничего нет. Добавьте любимое кино на странице
+          location.pathname === '/saved-movies' ?
+          (<p className='card-list__empty'>Тут пока ничего нет. Добавьте любимое кино на странице
             <NavLink to='/movies' className='link-animation card-list__link'> Фильмы</NavLink>!
-          </p>
+          </p>) :
+          (
+            <p className='card-list__empty'>Пожалуйста, введите ключевое слово для поиска!</p>
+          )
         )
     }
     </div>

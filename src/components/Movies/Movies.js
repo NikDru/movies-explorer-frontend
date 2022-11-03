@@ -43,7 +43,7 @@ function Movies(props) {
   }, [currentUser])
 
   function searchFilms(searchValue, switcher) {
-    //setSearch(true);
+    setSearch(true);
     const filmsWorker = new FilmsWorker();
     filmsWorker.searchFilms(searchValue, switcher, initialFilmsCount).then(res => {
       setFilms(res[0]);
@@ -89,16 +89,19 @@ function Movies(props) {
 
   return (
     <>
-      <Header signedIn={props.loggedIn} style='white' onSideMenuClick={props.onSideMenuClick}/>
+      <Header signedIn={props.loggedIn} fontStyle='white' onSideMenuClick={props.onSideMenuClick}/>
       <main>
         <SearchForm
           searchValue={localStorage.getItem('searchValue')}
           switcher={localStorage.getItem('switcher') === 'true'}
           handleSubmit={searchFilms}
         />
-        <MoviesCardList films={films} likedFilms={likedFilms} handleLikeFilm={handleLikeFilm} deleteFilm={handleDeleteFilm}/>
         {
-          hasMore && <Extra handleClickMore={handleClickMore}/>
+          <MoviesCardList films={films} likedFilms={likedFilms} handleLikeFilm={handleLikeFilm} deleteFilm={handleDeleteFilm}  searched={search}/>
+        }
+        {
+          hasMore &&
+          <Extra handleClickMore={handleClickMore}/>
         }
       </main>
       <Footer />

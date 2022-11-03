@@ -53,18 +53,19 @@ export default class FilmsWorker {
     localStorage.removeItem('returnedFilms', '');
     return filmsApi.getFilms()
     .then(res => {
-      localStorage.setItem('searchedFilms', JSON.stringify(this._sortFilms(res, searchValue, switcher)));
+      localStorage.setItem('searchedFilms', JSON.stringify(this.sortFilms(res, searchValue, switcher)));
       return this.getNextFilms(count);
     });
   }
 
-  searchBySavedFilms(searchValue, switcher, likedFilms) {
-    const searchedFilms = this._sortFilms(JSON.parse(localStorage.getItem('searchedFilms')), searchValue, switcher);
-    const savedLikedFilms = searchedFilms.filter(n => (likedFilms.filter(l => l.movieId === n.id).length > 0));
+/*   searchBySavedFilms(searchValue, switcher, likedFilms) {
+    //const searchedFilms = this._sortFilms(JSON.parse(localStorage.getItem('searchedFilms')), searchValue, switcher);
+    //const savedLikedFilms = searchedFilms.filter(n => (likedFilms.filter(l => l.movieId === n.id).length > 0));
+    const savedLikedFilms = likedFilms.filter(l => l.movieId);
     return savedLikedFilms;
-  }
+  } */
 
-  _sortFilms(films, searchValue, switcher) {
+  sortFilms(films, searchValue, switcher) {
     const sortedFilms = films.filter(film =>
       film.nameRU.toLowerCase().includes(searchValue.toLowerCase()) &&
       (!switcher || (switcher && film.duration < 40) ));
