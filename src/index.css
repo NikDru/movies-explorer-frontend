@@ -1,0 +1,37 @@
+@import url(./vendors/normalize.css);
+@import url(./vendors/fonts/fonts.css);
+
+@import url(./CommonStyles/section-header.css);
+@import url(./CommonStyles/link-animation.css);
+@import url(./CommonStyles/button-animation.css);
+
+@import url(./components/Navigation/Navigation.css);
+
+@import url(./components/Switcher/Switcher.css);
+
+@import url(./components/Header/Header.css);
+
+@import url(./components/Footer/Footer.css);
+
+@import url(./components/Main/Main.css);
+@import url(./components/Main/Promo/Promo.css);
+@import url(./components/Main/AboutProject/AboutProject.css);
+@import url(./components/Main/Techs/Techs.css);
+@import url(./components/Main/AboutMe/AboutMe.css);
+@import url(./components/Main/Portfolio/Portfolio.css);
+
+@import url(./components/Extra/Extra.css);
+
+@import url(./components/MoviesCardList/MoviesCardList.css);
+
+@import url(./components/MoviesCard/MoviesCard.css);
+
+@import url(./components/SearchForm/SearchForm.css);
+
+@import url(./components/Sign/Sign.css);
+
+@import url(./components/Profile/Profile.css);
+
+@import url(./components/NotFound/NotFound.css);
+
+@import url(./components/Menu/Menu.css);
