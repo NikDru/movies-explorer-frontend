@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 import Switcher from '../Switcher/Switcher';
 
 function SearchForm(props) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation((props.searchValue !== null) && props.searchValue.length > 0);
+  const { values, handleChange, errors, isValid } = useFormWithValidation((props.searchValue !== null) && props.searchValue.length > 0);
   const [searchValue, setSearchValue] = useState(props.searchValue);
   const [switcher, setSwitcher] = useState(props.switcher);
 

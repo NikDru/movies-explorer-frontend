@@ -4,7 +4,6 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Extra from '../Extra/Extra';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-/* import filmsApi from '../../utils/BeatsMoviesApi'; */
 import FilmsWorker from '../../utils/FilmsWorker';
 import useWindowSize from '../../userHooks/useWindowSize';
 import moviesExplorerApi from '../../utils/MoviesExplorerApi';
@@ -13,6 +12,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 function Movies(props) {
   const currentUser = useContext(CurrentUserContext);
   const [search, setSearch] = useState(false);
+  const [error, setError] = useState(false);
   const [preloader, setPreloader] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [films, setFilms] = useState([]);
@@ -61,6 +61,7 @@ function Movies(props) {
         setPreloader(false);
       })
       .catch((err) => {
+        setError(true);
         props.errorSetter(err);
       })
   }
@@ -72,7 +73,6 @@ function Movies(props) {
     localStorage.setItem('hasMore', newHasMore);
     setHasMore(newHasMore);
   }
-
 
   function handleLikeFilm(newFilm) {
     moviesExplorerApi.likeFilm({
@@ -125,10 +125,10 @@ function Movies(props) {
             deleteFilm={handleDeleteFilm}
             searched={search}
             preloader={preloader}
+            error={error}
           />
         }
         {
-
           (!preloader && hasMore) &&
           <Extra handleClickMore={handleClickMore}/>
         }

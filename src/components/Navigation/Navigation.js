@@ -66,8 +66,7 @@ function Navigation(props) {
                 </NavLink>
               </div>
             )
-      )
-      :
+      ) :
       (
         <div className='navigation__sign-links'>
           <NavLink to='/sign-up' className='link-animation navigation__signup'>Регистрация</NavLink>

@@ -4,7 +4,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 
 function Profile(props) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation(true);
+  const { values, handleChange, errors, isValid } = useFormWithValidation(true);
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');

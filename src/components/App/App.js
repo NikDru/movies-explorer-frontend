@@ -14,7 +14,6 @@ import './App.css';
 import moviesExplorerApi from '../../utils/MoviesExplorerApi';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);

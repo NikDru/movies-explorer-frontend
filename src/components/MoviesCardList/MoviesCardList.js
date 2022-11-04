@@ -7,39 +7,48 @@ function MoviesCardList(props) {
   const location = useLocation();
   const cardList = props.films.map((film) => {
     return <MoviesCard
-            film={film}
-            key={film.nameRU}
-            handleLikeFilm={props.handleLikeFilm}
-            liked={props.likedFilms.some(likedFilm => likedFilm.movieId === film.id)}
-            deleteFilm={props.deleteFilm}
-            />
+              film={film}
+              key={film.nameRU}
+              handleLikeFilm={props.handleLikeFilm}
+              liked={props.likedFilms.some(likedFilm => likedFilm.movieId === film.id)}
+              deleteFilm={props.deleteFilm}
+              />
   })
 
   return (
     <div className='card-list'>
     {
-      props.searched ? (
-        props.preloader ?
-          <Preloader /> :
-          (
-            cardList.length > 0 ?
-              (
-                <div className='card-list__cards'>{cardList}</div>
-              ) :
-              (
-                  <p className='card-list__empty'>Ничего не найдено</p>
-              )
-          )
-        ) :
+      props.error ? (
+        <p className='card-list__empty'>Во время запроса произошла ошибка.
+          Возможно, проблема с соединением или сервер недоступен.
+          Подождите немного и попробуйте ещё раз
+        </p>
+      ) :
+      (
+        props.searched ?
         (
-          location.pathname === '/saved-movies' ?
-          (<p className='card-list__empty'>Тут пока ничего нет. Добавьте любимое кино на странице
-            <NavLink to='/movies' className='link-animation card-list__link'> Фильмы</NavLink>!
-          </p>) :
+          props.preloader ?
+            <Preloader /> :
+            (
+              cardList.length > 0 ?
+                (
+                  <div className='card-list__cards'>{cardList}</div>
+                ) :
+                (
+                    <p className='card-list__empty'>Ничего не найдено</p>
+                )
+            )
+          ) :
           (
-            <p className='card-list__empty'>Пожалуйста, введите ключевое слово для поиска!</p>
+            location.pathname === '/saved-movies' ?
+            (<p className='card-list__empty'>Тут пока ничего нет. Добавьте любимое кино на странице
+              <NavLink to='/movies' className='link-animation card-list__link'> Фильмы</NavLink>!
+            </p>) :
+            (
+              <p className='card-list__empty'>Пожалуйста, введите ключевое слово для поиска!</p>
+            )
           )
-        )
+      )
     }
     </div>
   );

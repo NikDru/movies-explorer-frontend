@@ -9,7 +9,7 @@ function Header(props) {
 
   const currentUser = useContext(CurrentUserContext);
 
-  const [width, height] = useWindowSize();
+  const [width] = useWindowSize();
 
   return (
     <header className={`header ${props.fontStyle === 'white' ? 'header_color_white' : ''}`}>
