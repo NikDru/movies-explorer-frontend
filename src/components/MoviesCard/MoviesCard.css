@@ -24,7 +24,7 @@
 .card__name {
   margin: 0;
   padding: 0;
-  min-height: 32px;
+  height: 32px;
   max-width: 226px;
   font-family: 'Inter';
   font-style: normal;
@@ -32,6 +32,9 @@
   font-size: 13px;
   line-height: 16px;
   text-align: left;
+  overflow: hidden;
+/*   white-space: nowrap; */
+  text-overflow: ellipsis;
 }
 
 .card__like {

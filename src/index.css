@@ -35,3 +35,5 @@
 @import url(./components/NotFound/NotFound.css);
 
 @import url(./components/Menu/Menu.css);
+
+@import url(./components/ErrorPopup/ErrorPopup.css);

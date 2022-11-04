@@ -19,14 +19,16 @@ function MoviesCardList(props) {
     <div className='card-list'>
     {
       props.searched ? (
-        cardList.length > 0 ?
+        props.preloader ?
+          <Preloader /> :
           (
-            <div className='card-list__cards'>{cardList}</div>
-          ) :
-          (
-            props.preloader ?
-              <Preloader /> :
-              <p className='card-list__empty'>Ничего не найдено</p>
+            cardList.length > 0 ?
+              (
+                <div className='card-list__cards'>{cardList}</div>
+              ) :
+              (
+                  <p className='card-list__empty'>Ничего не найдено</p>
+              )
           )
         ) :
         (

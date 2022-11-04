@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
@@ -14,13 +14,17 @@ function SavedMovies(props) {
   const [searched, setSearched] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [switcher, setSwitcher] = useState(false);
+  const errorSetter = useRef(props.errorSetter);
 
   useEffect(() => {
     function getLikedFilms() {
       moviesExplorerApi.getMovies(currentUser.email)
-      .then(res => {
-        setLikedFilms(res);
-      })
+        .then(res => {
+          setLikedFilms(res);
+        })
+        .catch((err) => {
+          errorSetter.current(err);
+        })
     };
     getLikedFilms();
   }, [currentUser])
@@ -53,6 +57,9 @@ function SavedMovies(props) {
       const newLikedFilms = likedFilms.filter(f => f._id !== film._id);
       setLikedFilms(newLikedFilms);
     })
+    .catch((err) => {
+      props.errorSetter(err);
+    })
   }
   return (
     <>
@@ -63,7 +70,12 @@ function SavedMovies(props) {
           switcher={false}
           handleSubmit={searchFilms}
         />
-        <MoviesCardList films={films} likedFilms={films} deleteFilm={handleDeleteFilm}/>
+        <MoviesCardList
+          films={films}
+          likedFilms={films}
+          deleteFilm={handleDeleteFilm}
+          searched={searched}
+          />
       </main>
       <Footer />
     </>

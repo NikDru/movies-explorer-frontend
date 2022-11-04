@@ -31,6 +31,12 @@ function Movies(props) {
   useEffect(() => {
     function getInfoFromLocalStorage() {
       const returnedFilms = localStorage.getItem('returnedFilms') !== null ? JSON.parse(localStorage.getItem('returnedFilms')) : [];
+      const searchValue = localStorage.getItem('searchValue');
+      const hasMore = localStorage.getItem('hasMore');
+      setHasMore(hasMore !== null && hasMore === 'true')
+      if (searchValue !== null) {
+        setSearch(true);
+      }
       setFilms(returnedFilms);
     }
     function getLikedFilms() {
@@ -47,17 +53,23 @@ function Movies(props) {
     setSearch(true);
     setPreloader(true);
     const filmsWorker = new FilmsWorker();
-    filmsWorker.searchFilms(searchValue, switcher, initialFilmsCount).then(res => {
-      setFilms(res[0]);
-      setHasMore(res[1]);
-      setPreloader(false);
-    })
+    filmsWorker.searchFilms(searchValue, switcher, initialFilmsCount)
+      .then(res => {
+        setFilms(res[0]);
+        localStorage.setItem('hasMore', res[1]);
+        setHasMore(res[1]);
+        setPreloader(false);
+      })
+      .catch((err) => {
+        props.errorSetter(err);
+      })
   }
 
   function handleClickMore() {
     const filmsWorker = new FilmsWorker();
     const [newFilms, newHasMore] = filmsWorker.getNextFilms(extraFilmsCount);
     setFilms(films.concat(newFilms));
+    localStorage.setItem('hasMore', newHasMore);
     setHasMore(newHasMore);
   }
 
@@ -80,6 +92,9 @@ function Movies(props) {
       likedFilms.push(res);
       setLikedFilms([...likedFilms]);
     })
+    .catch((err) => {
+      props.errorSetter(err);
+    })
   }
 
   function handleDeleteFilm(film) {
@@ -87,6 +102,9 @@ function Movies(props) {
     .then(res => {
       const newLikedFilms = likedFilms.filter(f => f.movieId !== film.id);
       setLikedFilms(newLikedFilms);
+    })
+    .catch((err) => {
+      props.errorSetter(err);
     })
   }
 
@@ -110,7 +128,8 @@ function Movies(props) {
           />
         }
         {
-          hasMore &&
+
+          (!preloader && hasMore) &&
           <Extra handleClickMore={handleClickMore}/>
         }
       </main>
