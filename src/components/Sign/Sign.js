@@ -1,6 +1,8 @@
 import logo from '../../images/logo.svg';
+import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 
 function Sign(props) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(event) {
     event.preventDefault();

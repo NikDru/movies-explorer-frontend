@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Header from "../Header/Header";
-import { useLocation, NavLink } from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 
@@ -12,6 +11,7 @@ function Profile(props) {
   const [prevName, setPrevName] = React.useState('');
   const [prevEmail, setPrevEmail] = React.useState('');
   const [correction, setCorrection] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
     setName(currentUser.name);
@@ -20,17 +20,29 @@ function Profile(props) {
 
   function editFields() {
     setPrevName(name);
-    setPrevEmail(prevEmail);
+    setPrevEmail(email);
     setCorrection(true);
+    setButtonDisabled(true);
+  }
+
+  function checkFields(name, email) {
+    if ((name === prevName) && (email === prevEmail)) {
+      setButtonDisabled(true);
+    }
+    else {
+      setButtonDisabled(false);
+    }
   }
 
   function handleNameChange(event) {
     handleChange(event);
+    checkFields(event.target.value, email);
     setName(event.target.value);
   }
 
   function handleEmailChange(event) {
     handleChange(event);
+    checkFields(name, event.target.value);
     setEmail(event.target.value);
   }
 
@@ -52,7 +64,8 @@ function Profile(props) {
             <input
               name='profile__input_name'
               type='text'
-              className='profile__input profile__input_type_name'
+              className={`profile__input profile__input_type_email
+                ${(errors['profile__input_name'] !== undefined && errors['profile__input_name'].length > 0) ? 'profile__input-error' : ''}`}
               value={name}
               onChange={handleNameChange}
               disabled={!correction}
@@ -65,7 +78,8 @@ function Profile(props) {
             <input
               name='profile__input_email'
               type='text'
-              className='profile__input profile__input_type_email'
+              className={`profile__input profile__input_type_email
+                ${(errors['profile__input_email'] !== undefined && errors['profile__input_email'].length > 0) ? 'profile__input-error' : ''}`}
               value={email}
               onChange={handleEmailChange}
               disabled={!correction}
@@ -81,7 +95,7 @@ function Profile(props) {
                 <>
                 <p>{errors['profile__input_name']}</p>
                 <p>{errors['profile__input_email']}</p>
-                <input type='submit' className='profile__save-button' value={'Сохранить'} disabled={!isValid}></input>
+                <input type='submit' className='profile__save-button' value={'Сохранить'} disabled={!isValid || buttonDisabled}></input>
                 </>
               ) :
               (

@@ -61,6 +61,9 @@
   text-align: right;
 }
 
+.profile__input-error {
+  color: #FF3055;
+}
 
 .profile__input-container:focus-within {
   border-bottom: 1px solid rgba(52, 86, 243, 0.25);
@@ -122,6 +125,11 @@
   font-size: 14px;
   line-height: 17px;
   color: #FFFFFF;
+}
+
+.profile__save-button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
 }
 
 @media screen and (max-width: 1023px) {
