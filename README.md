@@ -5,3 +5,6 @@
 Backend https://api.movies-board.diploma.nomoredomains.icu
 
 Ссылка на файлс шаблоном Figma https://disk.yandex.ru/d/LWj1j9MZCjGjrA
+
+
+pull-request https://github.com/NikDru/movies-explorer-frontend/pull/2
