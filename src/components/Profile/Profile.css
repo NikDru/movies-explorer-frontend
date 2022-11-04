@@ -70,7 +70,7 @@
 }
 
 .profile__footer {
-  margin: 220px 0 0;
+  margin: 207px 0 0;
   padding: 0;
   display: flex;
   flex-flow: column;
@@ -106,6 +106,23 @@
   border: none;
 }
 
+.profile__error-text {
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
+  color: #FF3055;
+  text-align: center;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.profile__error-text_visible {
+  visibility: visible;
+}
+
 .profile__save-button {
   margin: 0;
   padding: 0;
@@ -138,7 +155,7 @@
   }
 
   .profile__footer {
-    margin: 210px 0 0;
+    margin: 197px 0 0;
   }
 }
 
@@ -152,6 +169,6 @@
   }
 
   .profile__footer {
-    margin: 363px 0 0;
+    margin: 350px 0 0;
   }
 }

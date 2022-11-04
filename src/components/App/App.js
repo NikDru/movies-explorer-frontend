@@ -1,22 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import Header from '../Header/Header';
+import React from 'react';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-import Preloader from '../Preloader/Preloader';
-import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
-import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
-import filmsApi from '../../utils/BeatsMoviesApi';
 import moviesExplorerApi from '../../utils/MoviesExplorerApi';
-import useWindowSize from '../../userHooks/useWindowSize';
 
 
 class App extends React.Component {
@@ -156,7 +151,6 @@ class App extends React.Component {
               exact path="/movies"
               component={Movies}
               >
-    {/*           <Preloader /> */}
             </ProtectedRoute>
             <ProtectedRoute
               onSideMenuClick={this.openSideMenu}

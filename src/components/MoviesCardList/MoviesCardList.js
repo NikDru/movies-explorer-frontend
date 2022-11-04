@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom';
+import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList(props) {
   const location = useLocation();
@@ -23,7 +24,9 @@ function MoviesCardList(props) {
             <div className='card-list__cards'>{cardList}</div>
           ) :
           (
-            <p className='card-list__empty'>Ничего не найдено</p>
+            props.preloader ?
+              <Preloader /> :
+              <p className='card-list__empty'>Ничего не найдено</p>
           )
         ) :
         (

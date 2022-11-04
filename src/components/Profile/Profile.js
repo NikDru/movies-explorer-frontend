@@ -4,7 +4,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 
 function Profile(props) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation(true);
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -89,22 +89,29 @@ function Profile(props) {
           </div>
           {
             <div className='profile__footer'>
-            {
-              correction === true ?
-              (
-                <>
-                <p>{errors['profile__input_name']}</p>
-                <p>{errors['profile__input_email']}</p>
-                <input type='submit' className='profile__save-button' value={'Сохранить'} disabled={!isValid || buttonDisabled}></input>
-                </>
-              ) :
-              (
-                <>
-                  <p className='link-animation profile__edit' onClick={editFields}>Редактировать</p>
-                  <button type='button' className='link-animation profile__exit' onClick={props.onExit}>Выйти из аккаунта</button>
-                </>
-              )
-            }
+              <p className={`profile__error-text ${!isValid ? 'profile__error-text_visible' : ''}`}>
+                {
+                  ((errors['profile__input_email'] !== undefined && errors['profile__input_email'].length > 0) &&
+                  (errors['profile__input_name'] !== undefined && errors['profile__input_name'].length > 0)) ?
+                  'Пожалуйста, исправьте поля Имя и E-mail' :
+                  ((errors['profile__input_email'] !== undefined && errors['profile__input_email'].length > 0) ?
+                  'Пожалуйста, исправьте поле E-mail' : 'Пожалуйста, исправьте поле Имя')
+                }
+              </p>
+              {
+                correction === true ?
+                (
+                  <>
+                  <input type='submit' className='profile__save-button' value={'Сохранить'} disabled={!isValid || buttonDisabled}></input>
+                  </>
+                ) :
+                (
+                  <>
+                    <p className='link-animation profile__edit' onClick={editFields}>Редактировать</p>
+                    <button type='button' className='link-animation profile__exit' onClick={props.onExit}>Выйти из аккаунта</button>
+                  </>
+                )
+              }
             </div>
           }
         </form>

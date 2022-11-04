@@ -1,9 +1,6 @@
 import logo from '../../images/logo.svg';
-import { useFormWithValidation } from '../../userHooks/useFormWithValidation';
 
 function Sign(props) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
-
   function handleSubmit(event) {
     event.preventDefault();
     props.handleSubmit(props.formValues);
@@ -21,7 +18,8 @@ function Sign(props) {
         <input
           className={`button-animation sign__button ${props.signIn === true ? 'sign__button_sign-in' : ''}`}
           type="submit"
-          value={props.buttonText}></input>
+          value={props.buttonText}
+          disabled={!props.formValid}></input>
         </form>
         <div className='sign__signature'>
           {props.signature}

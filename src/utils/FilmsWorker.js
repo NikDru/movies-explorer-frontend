@@ -1,34 +1,3 @@
-/* import { useEffect, useLayoutEffect, useState } from 'react';
-import useWindowSize from './useWindowSize';
-
-function useFilmsLoader(searchValue) {
-  const [films, setFilms] = useState([]);
-  const [filmsCount, seFilmsCount] = useState(0);
-  const [width, height] = useWindowSize();
-
-
-
-  useEffect(() => {
-    let newFilmsCount = width > 1023 ? 4 : (width > 767 ? 3 : (width > 500 ? 2 : 1));
-    seFilmsCount(newFilmsCount);
-  }, [width])
-
-  useEffect(() => {
-    function searchFilms(searchValue, switcher) {
-      setSearch(true);
-      localStorage.setItem('searchValue', searchValue);
-      filmsApi.getFilms()
-        .then(res => setFilms(filmsApi.searchFilms(res, searchValue, switcher, filmsCount)))
-        .catch(err => console.log(err));
-    }
-    const filteredFilms = searchedFilms
-  }, [])
-
-  return films;
-}
-
-export default useFilmsLoader; */
-
 import filmsApi from './BeatsMoviesApi';
 
 export default class FilmsWorker {
@@ -57,13 +26,6 @@ export default class FilmsWorker {
       return this.getNextFilms(count);
     });
   }
-
-/*   searchBySavedFilms(searchValue, switcher, likedFilms) {
-    //const searchedFilms = this._sortFilms(JSON.parse(localStorage.getItem('searchedFilms')), searchValue, switcher);
-    //const savedLikedFilms = searchedFilms.filter(n => (likedFilms.filter(l => l.movieId === n.id).length > 0));
-    const savedLikedFilms = likedFilms.filter(l => l.movieId);
-    return savedLikedFilms;
-  } */
 
   sortFilms(films, searchValue, switcher) {
     const sortedFilms = films.filter(film =>

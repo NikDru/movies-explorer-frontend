@@ -13,12 +13,13 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 function Movies(props) {
   const currentUser = useContext(CurrentUserContext);
   const [search, setSearch] = useState(false);
+  const [preloader, setPreloader] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [films, setFilms] = useState([]);
   const [likedFilms, setLikedFilms] = useState([]);
   const [initialFilmsCount, setInitialFilmsCount] = useState(0);
   const [extraFilmsCount, setExtraFilmsCount] = useState(0);
-  const [width, height] = useWindowSize();
+  const [width] = useWindowSize();
 
   useEffect(() => {
     let newInitialFilmsCount = width > 1023 ? 12 : (width > 767 ? 12 : (width > 500 ? 8 : 5));
@@ -44,10 +45,12 @@ function Movies(props) {
 
   function searchFilms(searchValue, switcher) {
     setSearch(true);
+    setPreloader(true);
     const filmsWorker = new FilmsWorker();
     filmsWorker.searchFilms(searchValue, switcher, initialFilmsCount).then(res => {
       setFilms(res[0]);
       setHasMore(res[1]);
+      setPreloader(false);
     })
   }
 
@@ -97,7 +100,14 @@ function Movies(props) {
           handleSubmit={searchFilms}
         />
         {
-          <MoviesCardList films={films} likedFilms={likedFilms} handleLikeFilm={handleLikeFilm} deleteFilm={handleDeleteFilm}  searched={search}/>
+          <MoviesCardList
+            films={films}
+            likedFilms={likedFilms}
+            handleLikeFilm={handleLikeFilm}
+            deleteFilm={handleDeleteFilm}
+            searched={search}
+            preloader={preloader}
+          />
         }
         {
           hasMore &&
