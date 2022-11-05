@@ -52,7 +52,6 @@ class App extends React.Component {
             email: res.email
           }
         }));
-        this.resetPopupsState();
       })
       .catch((e) => this.setApiError(e));
   }
