@@ -113,7 +113,7 @@ function Movies(props) {
       <Header signedIn={props.loggedIn} fontStyle='white' onSideMenuClick={props.onSideMenuClick}/>
       <main>
         <SearchForm
-          searchValue={localStorage.getItem('searchValue')}
+          searchValue={localStorage.getItem('searchValue') === null ? '' : localStorage.getItem('searchValue')}
           switcher={localStorage.getItem('switcher') === 'true'}
           handleSubmit={searchFilms}
         />

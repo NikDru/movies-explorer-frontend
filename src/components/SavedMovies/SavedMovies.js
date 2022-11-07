@@ -20,7 +20,10 @@ function SavedMovies(props) {
     function getLikedFilms() {
       moviesExplorerApi.getMovies(currentUser.email)
         .then(res => {
-          setLikedFilms(res);
+          const searchedFilms = fixLinks(res);
+          setSearched(true);
+          setFilms(searchedFilms);
+          setLikedFilms(searchedFilms);
         })
         .catch((err) => {
           errorSetter.current(err);
@@ -32,21 +35,23 @@ function SavedMovies(props) {
   useEffect(() => {
     if (searched) {
       const filmsWorker = new FilmsWorker();
-      const newFilms = filmsWorker.sortFilms(likedFilms, searchValue, switcher).map(el => {
-        return {...el, image: {url: el.image}}});
+      const newFilms = filmsWorker.sortFilms(likedFilms, searchValue, switcher);
       setFilms(newFilms);
     }
   }, [likedFilms, switcher, searchValue, searched])
+
+  function fixLinks(filmsArray) {
+    const fixedFilmsArray = filmsArray.map(el => {
+      return {...el, image: {url: el.image}}});
+    return fixedFilmsArray;
+  }
 
   function searchFilms(searchValue, switcher) {
     setSearched(true);
     setSearchValue(searchValue);
     setSwitcher(switcher);
-    //setSearch(true);
     const filmsWorker = new FilmsWorker();
-    const newFilms = filmsWorker.sortFilms(likedFilms, searchValue, switcher).map(el => {
-      return {...el, image: {url: el.image}};
-    });
+    const newFilms = filmsWorker.sortFilms(likedFilms, searchValue, switcher);
     setFilms(newFilms);
     console.log('render saved-movies');
   }

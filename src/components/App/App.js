@@ -9,7 +9,7 @@ import Menu from '../Menu/Menu';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter  } from 'react-router-dom';
 import './App.css';
 import moviesExplorerApi from '../../utils/MoviesExplorerApi';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
@@ -39,7 +39,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.tokenCheck();
+    if (this.state.currentUser.loggedIn === false) {
+      this.tokenCheck();
+    }
   }
 
   handleUpdateUser(userInfo) {
@@ -105,6 +107,7 @@ class App extends React.Component {
             },
             () => {
               this.props.history.push('/movies');
+              //this.props.history.goForward();
             }
           );
         }
@@ -194,9 +197,7 @@ class App extends React.Component {
               errorSetter={this.setApiError}
               >
             </ProtectedRoute>
-            <Route path="*">
-              <NotFound />
-            </Route>
+            <Route path="*" component={NotFound} />
           </Switch>
           <Menu
             styleElements='white'

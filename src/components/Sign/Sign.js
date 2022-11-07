@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 
 function Sign(props) {
@@ -9,7 +10,9 @@ function Sign(props) {
   return (
     <>
       <header className='sign__header'>
-        <img className='sign__logo' src={logo} alt='Logo'/>
+        <NavLink to='/'>
+          <img className='sign__logo' src={logo} alt='Logo'/>
+        </NavLink>
         <h1 className='sign__title'>{props.headerText}</h1>
       </header>
       <section className='sign__body'>

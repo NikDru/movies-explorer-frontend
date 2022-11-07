@@ -20,11 +20,20 @@ export default class FilmsWorker {
     localStorage.setItem('searchValue', searchValue);
     localStorage.removeItem('searchedFilms', '');
     localStorage.removeItem('returnedFilms', '');
-    return filmsApi.getFilms()
-    .then(res => {
-      localStorage.setItem('searchedFilms', JSON.stringify(this.sortFilms(res, searchValue, switcher)));
-      return this.getNextFilms(count);
-    });
+    const allFilms = JSON.parse(localStorage.getItem('allFilms'));
+    if (allFilms !== null && allFilms.length > 0) {
+      localStorage.setItem('searchedFilms', JSON.stringify(this.sortFilms(allFilms, searchValue, switcher)));
+      return new Promise((resolve) => {
+        resolve(this.getNextFilms(count));
+      });
+    } else {
+      return filmsApi.getFilms()
+      .then(res => {
+        localStorage.setItem('allFilms', JSON.stringify(res));
+        localStorage.setItem('searchedFilms', JSON.stringify(this.sortFilms(res, searchValue, switcher)));
+        return this.getNextFilms(count);
+      });
+    }
   }
 
   sortFilms(films, searchValue, switcher) {
