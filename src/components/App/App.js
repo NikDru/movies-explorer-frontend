@@ -28,6 +28,7 @@ class App extends React.Component {
       errorPopup: false,
       apiErrorMessage: ''
     }
+    this.nextPath = props.history.location.pathname;
     this.handleUpdateUser = this.handleUpdateUser.bind(this);
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
@@ -62,6 +63,7 @@ class App extends React.Component {
     moviesExplorerApi.signIn(userInfo)
       .then((res) => {
         if (res.token) {
+          this.nextPath = '/';
           localStorage.setItem('token', res.token);
           this.authenticateByToken(res.token);
         }
@@ -106,7 +108,7 @@ class App extends React.Component {
               }
             },
             () => {
-              this.props.history.push('/movies');
+              this.props.history.push(this.nextPath);
               //this.props.history.goForward();
             }
           );
