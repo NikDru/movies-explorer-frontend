@@ -122,7 +122,7 @@ class App extends React.Component {
 
   signOut() {
     moviesExplorerApi.deleteToken();
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.setState((state) => ({
       currentUser: {
         name: '',
