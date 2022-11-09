@@ -7,6 +7,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Menu from '../Menu/Menu';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import UnauthorizedRoute from '../UnathorizedRoute/UnauthorizedRoute';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import NotFound from '../NotFound/NotFound';
 import { Route, Switch, withRouter  } from 'react-router-dom';
@@ -40,9 +41,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.currentUser.loggedIn === false) {
-      this.tokenCheck();
-    }
+    this.tokenCheck();
   }
 
   handleUpdateUser(userInfo) {
@@ -165,12 +164,16 @@ class App extends React.Component {
       <div className="app">
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <Switch>
-            <Route exact path="/sign-up">
-              <Register handleSubmit={this.handleSignUpSubmit} />
-            </Route>
-            <Route exact path="/sign-in">
-              <Login handleSubmit={this.handleSignInSubmit} />
-            </Route>
+            <UnauthorizedRoute
+              exact path="/sign-up"
+              component={Register}
+              handleSubmit={this.handleSignUpSubmit} >
+            </UnauthorizedRoute>
+            <UnauthorizedRoute
+              exact path="/sign-in"
+              component={Login}
+              handleSubmit={this.handleSignInSubmit} >
+            </UnauthorizedRoute>
             <Route exact path="/">
               <Main
                 onSideMenuClick={this.openSideMenu}
@@ -199,7 +202,9 @@ class App extends React.Component {
               errorSetter={this.setApiError}
               >
             </ProtectedRoute>
-            <Route path="*" component={NotFound} />
+            <Route
+              path="*"
+              component={NotFound} />
           </Switch>
           <Menu
             styleElements='white'
