@@ -1,13 +1,17 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const UnauthorizedRoute = ({ component: Component, ...props }) => {
+  const history = useHistory();
+
   const currentUser = React.useContext(CurrentUserContext);
   return (
     <Route>
       {() =>
-        currentUser.loggedIn ? <Redirect to="/" /> : <Component {...props} />
+        !currentUser.loggedIn ?
+          <Component {...props} /> :
+          history.push('/')
       }
     </Route>
   );
