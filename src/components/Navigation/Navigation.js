@@ -28,6 +28,7 @@ function Navigation(props) {
                   {
                     props.sideMenu && (
                       <NavLink
+                        onClick={props.handleClick}
                         to='/'
                         exact activeClassName={activeLinkClassName}
                         className={`link-animation ${linkClassName} ${props.styleElements === 'white' ? 'navigation__link_color_white' : ''}`}>
@@ -36,12 +37,14 @@ function Navigation(props) {
                     )
                   }
                   <NavLink
+                    onClick={props.handleClick}
                     to='/movies'
                     activeClassName={activeLinkClassName}
                     className={`link-animation ${linkClassName} ${props.styleElements === 'white' ? 'navigation__link_color_white' : ''}`}>
                       Фильмы
                   </NavLink>
                   <NavLink
+                    onClick={props.handleClick}
                     to='/saved-movies'
                     activeClassName={activeLinkClassName}
                     className={`link-animation ${linkClassName} ${props.styleElements === 'white' ? 'navigation__link_color_white' : ''}`}>
@@ -49,6 +52,7 @@ function Navigation(props) {
                   </NavLink>
                 </div>
                 <NavLink
+                  onClick={props.handleClick}
                   to='/profile'
                   className={`button-animation
                               navigation__profile-link
@@ -62,8 +66,7 @@ function Navigation(props) {
                 </NavLink>
               </div>
             )
-      )
-      :
+      ) :
       (
         <div className='navigation__sign-links'>
           <NavLink to='/sign-up' className='link-animation navigation__signup'>Регистрация</NavLink>

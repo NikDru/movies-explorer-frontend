@@ -65,6 +65,7 @@
   box-sizing: border-box;
   border-bottom: 2px solid transparent;
   color: #000000;
+  white-space: nowrap;
 }
 
 .navigation__link_color_white {

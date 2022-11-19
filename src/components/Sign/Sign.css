@@ -33,7 +33,7 @@
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-  row-gap: 20px;
+  row-gap: 8px;
 }
 
 .sign__input-block {
@@ -72,6 +72,10 @@
   box-sizing: border-box;
 }
 
+.sign__input_error {
+  color: #FF3055;
+}
+
 .sign__input:focus {
   box-shadow: 0 0 0 3px rgba(52, 86, 243, 0.25);
 }
@@ -84,6 +88,10 @@
   font-size: 10px;
   line-height: 12px;
   color: #FF3055;
+}
+
+.sign__input-error_visible{
+  visibility: visible;
 }
 
 .sign__text {
@@ -112,6 +120,11 @@
   line-height: 17px;
   text-align: center;
   color: #FFFFFF;
+}
+
+.sign__button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
 }
 
 .sign__button_sign-in {

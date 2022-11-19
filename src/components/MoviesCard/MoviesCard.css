@@ -8,7 +8,9 @@
 .card__photo {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 270px;
+  height: 151px;
+  object-fit: cover;
 }
 
 .card__sign {
@@ -22,7 +24,7 @@
 .card__name {
   margin: 0;
   padding: 0;
-  min-height: 32px;
+  height: 32px;
   max-width: 226px;
   font-family: 'Inter';
   font-style: normal;
@@ -30,6 +32,9 @@
   font-size: 13px;
   line-height: 16px;
   text-align: left;
+  overflow: hidden;
+/*   white-space: nowrap; */
+  text-overflow: ellipsis;
 }
 
 .card__like {
@@ -81,11 +86,21 @@
     width: 339px;
     height: 269px;
   }
+
+  .card__photo {
+    width: 339px;
+    height: 190px;
+  }
 }
 
 @media screen and (max-width: 425px) {
   .card {
     width: 300px;
     height: 246px;
+  }
+
+  .card__photo {
+    width: 300px;
+    height: 168px;
   }
 }
